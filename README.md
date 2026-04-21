@@ -24,6 +24,8 @@ Permite:
 
 Git fue creado por **Linus Torvalds**.
 
+---
+
 ### Instalación de Git
 
 Para instalar Git:
