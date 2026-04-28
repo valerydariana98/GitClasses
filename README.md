@@ -181,3 +181,103 @@ git commit
 # Primera línea: título (prefijo + descripción)
 # Desde la segunda línea: cuerpo con la explicación detallada
 ```
+
+---
+
+## Clase 3 – GitHub y SSH
+
+### ¿Qué es GitHub?
+
+GitHub es una plataforma en la nube y red social para desarrolladores que permite alojar, gestionar y colaborar en proyectos de software usando Git.
+
+> **Git ≠ GitHub:** Git es el sistema que crea los puntos de guardado. GitHub es el servidor donde esos puntos se almacenan y comparten. GitHub usa Git, pero no son lo mismo.
+
+---
+
+### SSH vs HTTPS
+
+| | HTTPS | SSH |
+|---|---|---|
+| Autenticación | Te la pide cada vez (incluso con token) | Se configura una vez con una key |
+| Comodidad | ❌ Tedioso | ✅ Sin interrupciones |
+| Recomendado | No | **Sí, siempre usar SSH** |
+
+---
+
+### Configuración de SSH
+
+Ejecuta estos comandos en tu terminal (Linux) o Git Bash (Windows):
+
+```bash
+# 1. Generar la clave SSH
+ssh-keygen -t ed25519 -C "tu-correo@email.com"
+
+# 2. Copiar el contenido de la clave pública
+cat ~/.ssh/id_ed25519.pub
+```
+
+Luego en GitHub: **Perfil → Settings → SSH and GPG Keys → New SSH Key**, pega el contenido copiado, ponle un nombre a tu PC y click en **Add SSH Key**.
+
+```bash
+# 3. Verificar la conexión
+ssh -T git@github.com
+```
+
+---
+
+### Crear un repositorio en GitHub
+
+1. Ve a `https://github.com/Tu-user?tab=repositories` y click en **New**
+2. Pon el nombre y descripción del repositorio
+3. Click en **Create Repository**
+
+---
+
+### Conectar un repositorio local con GitHub
+
+> Requisito: ya debes tener el repo local inicializado (`git init`) y al menos un commit.
+
+```bash
+# Agregar el repositorio remoto (origin es el apodo por defecto de la URL)
+git remote add origin git@github.com:TuUser/TuRepo.git
+
+# Renombrar la rama principal a "main"
+git branch -M main
+
+# Subir los cambios por primera vez
+git push -u origin main
+```
+
+---
+
+### Clonar un repositorio
+
+```bash
+# Clonar con SSH (recomendado)
+git clone "git@github.com:TuUser/TuRepo.git"
+
+# Si lo clonaste con HTTPS por error, cambia el puntero a SSH
+git remote set-url origin "git@github.com:TuUser/TuRepo.git"
+
+# Ver a qué repositorio remoto está conectado tu repo
+git remote -v
+```
+
+---
+
+### Subir y bajar cambios
+
+```bash
+# Subir commits al servidor remoto
+git push origin <rama>
+
+# Traer commits del servidor remoto
+git pull origin <rama>
+```
+
+| Comando | Acción |
+|---|---|
+| `git push` | "Empuja" tus commits hacia GitHub |
+| `git pull` | "Trae" los commits de GitHub a tu máquina |
+| `origin` | Apodo del repositorio remoto (GitHub) |
+| `<rama>` | La rama que quieres subir o bajar |
