@@ -403,3 +403,94 @@ git checkout -b rama_nueva
 * Si vas a escribir más de dos líneas en un commit antiguo, crea una rama de una vez
 * No trabajes mucho tiempo en estado Detached HEAD
 * Úsalo para aprender: hacer checkout a commits de proyectos grandes es excelente para entender cómo crecieron
+
+---
+
+## Clase 5 – Ramas y Gitflow Básico
+
+### ¿Qué son las ramas?
+
+Una rama es una bifurcación del estado del código que crea un camino paralelo de desarrollo. Permiten trabajar en nuevas funcionalidades o correcciones sin afectar el código principal.
+
+---
+
+### Git Branch
+
+```bash
+# Listar todas las ramas y ver dónde está el HEAD
+git branch
+
+# Crear una nueva rama desde la rama actual
+git branch <rama>
+
+# Eliminar una rama
+git branch -D <rama>
+```
+
+---
+
+### Git Checkout enfocado en ramas
+
+```bash
+# Cambiar a una rama existente (requiere tener el directorio limpio)
+git checkout <rama>
+
+# Crear una rama y moverse a ella en un solo paso
+git checkout -b <rama>
+```
+
+---
+
+### Git Checkout vs Git Switch
+
+En 2019 (Git 2.23) se introdujo `git switch` para separar la navegación de ramas del resto de funciones de `checkout`.
+
+| | `git checkout` | `git switch` |
+|---|---|---|
+| Propósito | Multipropósito: ramas, commits, archivos | Especializado solo en ramas |
+| Riesgo | Puede dejarte en Detached HEAD fácilmente | Evita errores accidentales |
+| Cuándo usarlo | Comando clásico y universal | Comando moderno recomendado |
+
+```bash
+# Cambiar de rama (moderno)
+git switch <rama>
+
+# Crear y moverse a una nueva rama (moderno)
+git switch -c <rama>
+```
+
+---
+
+### Gitflow Básico
+
+Gitflow es un flujo de trabajo que establece reglas y convenciones para el uso de ramas, permitiendo trabajar de forma ordenada en equipo.
+
+#### Ramas principales
+
+| Rama | Propósito |
+|---|---|
+| `main` | Código en producción, siempre estable |
+| `develop` | Pre-producción, donde se integran las funcionalidades antes de lanzar |
+
+#### Ramas de apoyo
+
+| Rama | Nace de | Muere en | Propósito |
+|---|---|---|---|
+| `feature/*` | `develop` | `develop` | Desarrollar una tarea o funcionalidad específica |
+| `release/*` | `develop` | `main` y `develop` | Preparar y pulir una nueva versión (QA) |
+| `hotfix/*` | `main` | `main` y `develop` | Arreglar bugs urgentes en producción |
+
+#### Convención de nombres
+
+```
+feature/add-search-bar
+feature/new-user-form
+
+release/v1.0.0
+release/v2.1.0-beta
+
+hotfix/fix-login-error
+hotfix/security-patch-v1.0.2
+```
+
+> **¿Por qué hotfix nace de `main` y no de `develop`?** Porque `develop` puede tener cambios inestables. Un parche de producción debe partir de un estado estable.
