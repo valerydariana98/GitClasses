@@ -494,3 +494,83 @@ hotfix/security-patch-v1.0.2
 ```
 
 > **¿Por qué hotfix nace de `main` y no de `develop`?** Porque `develop` puede tener cambios inestables. Un parche de producción debe partir de un estado estable.
+
+---
+
+## Clase 6 – Merge, Fetch, Pull, Push y Flujo de Trabajo
+
+### Git Merge
+
+`git merge` fusiona una rama con otra, combinando los commits de ambas.
+
+```bash
+git merge --no-ff <rama>
+```
+
+El flag `--no-ff` (no fast-forward) evita que se pierda el historial de ramas: fuerza la creación de un commit de merge, dejando registro de que existió una rama aunque luego se borre.
+
+---
+
+### Git Fetch
+
+Consulta el repositorio remoto y avisa si hubo cambios en la rama y sus ramas hijas, pero **no los aplica** en tu código local.
+
+```bash
+git fetch
+```
+
+---
+
+### Git Pull
+
+Trae y aplica todos los cambios del repositorio remoto a tu rama local.
+
+```bash
+git pull origin <rama>
+```
+
+---
+
+### Git Push
+
+Sube tus commits locales al repositorio remoto.
+
+```bash
+git push origin <rama>
+```
+
+> Si es la primera vez que subes una rama en un repositorio ajeno, usa el flag `-u` para que Git tenga permiso de crearla en el remoto:
+> ```bash
+> git push origin -u <rama>
+> ```
+
+---
+
+### Flujo de trabajo completo (sin Pull Requests)
+
+Este es el flujo estándar para integrar una rama `feature` en `develop`:
+
+```bash
+# 1. Posicionarse en develop
+git checkout develop
+
+# 2. Ver si hay cambios en el remoto
+git fetch
+
+# 3. Traer los cambios de develop
+git pull origin develop
+
+# 4. Fusionar tu rama (sin perder historial)
+git merge --no-ff <rama>
+
+# 5. Si hay conflictos, resolverlos manualmente en los archivos afectados, luego:
+git add .
+git commit
+# Guardar el mensaje en el editor (Ctrl+O, Enter, Ctrl+X en nano)
+
+# 6. Eliminar la rama ya fusionada
+git branch -D <rama>
+
+# 7. Subir develop actualizado
+git push origin develop
+```
