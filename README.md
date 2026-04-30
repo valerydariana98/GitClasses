@@ -574,3 +574,69 @@ git branch -D <rama>
 # 7. Subir develop actualizado
 git push origin develop
 ```
+
+---
+
+## Clase 7 – Pull Requests y Colaboración
+
+### ¿Qué son los Pull Requests?
+
+Los Pull Requests (PRs) son la forma profesional de trabajar con Git/GitHub. Crean una solicitud visible en el repositorio de GitHub que permite al equipo revisar, discutir y aprobar qué código se va a fusionar antes de que suceda.
+
+---
+
+### ¿Por qué usar PRs si podemos mergear directamente?
+
+Porque cualquier colaborador podría mergear código sin avisar, sin revisión y sin debate. Los PRs:
+
+* Obligan al equipo a revisar los cambios antes de integrarlos
+* Permiten opinar, aprobar u oponerse a un cambio
+* Limitan quién puede fusionar código y cuándo
+* Dan visibilidad de qué se está poniendo en producción y quién lo hace
+
+---
+
+### Flujo de trabajo con Pull Requests
+
+```bash
+# 1. Posicionarse en develop y actualizarlo
+git checkout develop
+git fetch
+git pull origin develop
+
+# 2. Crear o cambiarte a tu rama de trabajo
+git checkout -b <rama>        # -b solo si la estás creando
+
+# 3. Sincronizar con develop si hubo cambios mientras trabajabas
+git merge develop
+
+# 4. Trabajar en tu rama y subir cambios
+git push origin <rama>        # agrega -u la primera vez en un repo ajeno
+
+# 5. Antes de crear el PR, asegurarte de estar al día
+git checkout develop
+git fetch
+git checkout <rama>
+git merge develop             # solo si hubo nuevos cambios en develop
+
+# 6. Resolver conflictos si los hay, luego:
+git add .
+git commit
+# Guardar en el editor (Ctrl+O, Enter, Ctrl+X en nano)
+git push origin <rama>
+
+# 7. Ir a GitHub y crear el Pull Request
+# → Tutorial: https://youtu.be/4CeMKqloOJc
+```
+
+---
+
+### ¿Cómo proteger el repositorio y limitar quién puede mergear?
+
+Configurar reglas de protección en GitHub evita que alguien fusione código sin aprobación. Se detalla en este video: https://youtu.be/ZdLomug2-UQ
+
+---
+
+### ¿Cómo colaborar sin ser colaborador invitado?
+
+Es posible contribuir a un repositorio sin haber sido invitado directamente, a través de **forks**. El flujo fue explicado por Andre en clase.
