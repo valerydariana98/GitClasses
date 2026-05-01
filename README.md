@@ -4,6 +4,8 @@
 
 Repositorio creado para registrar el avance diario de la materia.
 
+Se adjuntan algunas imagenes de la materia Procesos Agiles que se pasa de 20:15 a 21:45 los martes y viernes, impidiendo de esta manera el ingreso a la clase esos dias.
+
 ---
 
 ## Clase 1 – Introducción a Git
