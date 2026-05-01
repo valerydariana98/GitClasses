@@ -640,3 +640,63 @@ Configurar reglas de protección en GitHub evita que alguien fusione código sin
 ### ¿Cómo colaborar sin ser colaborador invitado?
 
 Es posible contribuir a un repositorio sin haber sido invitado directamente, a través de **forks**. El flujo fue explicado por Andre en clase.
+
+---
+
+## Clase 8 – Contribuir al Open Source desde la CLI
+
+### Contexto
+
+Para contribuir a un repositorio que no es tuyo, el flujo parte siempre desde un **Fork**: una copia del repositorio original en tu propia cuenta de GitHub.
+
+---
+
+### Flujo completo de contribución
+
+**Paso 1 — Hacer el Fork**
+
+Desde la interfaz web de GitHub, presiona el botón **Fork** en el repositorio al que quieres contribuir.
+
+**Paso 2 — Clonar tu fork**
+
+```bash
+git clone https://github.com/tu-usuario/nombre-repo.git
+cd nombre-repo
+```
+
+**Paso 3 — Crear una rama para tu cambio**
+
+Nunca trabajes directamente en `main`. Crea una rama específica para tu contribución.
+
+```bash
+git checkout -b <tipo>/<nombre-descriptivo>
+# Ejemplo: git checkout -b docs/ejemplo-video
+```
+
+**Paso 4 — Realizar el cambio y hacer commit**
+
+```bash
+# Preparar los archivos modificados
+git add .
+
+# Crear el commit con un mensaje semántico
+git commit -m "docs: agrega nota de ejemplo en el README"
+```
+
+**Paso 5 — Subir la rama a tu fork**
+
+```bash
+git push -u origin <rama>
+```
+
+**Paso 6 — Crear el Pull Request**
+
+Git devuelve un enlace directo en la terminal. Ábrelo y presiona **Create pull request** en GitHub para que los dueños del proyecto revisen tu código.
+
+---
+
+### Resumen del flujo
+
+```
+Fork en GitHub → git clone → git checkout -b <rama> → cambios → git add . → git commit → git push → Pull Request
+```
